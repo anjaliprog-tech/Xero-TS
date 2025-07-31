@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "5a03fd32-bfaf-4283-a991-04173e0d0581",
+		"name": "xero-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25052431"
+	},
+	"item": [
+		{
+			"name": "connection",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "clientSecret",
+							"value": "TJ18x4XU2uTRqRuyV1n5ptF4kSZQ9akD_8Mh1dc5YyH3s_Os",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "895637DF39D844FEB16DB0AEA8E14692",
+							"type": "string"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:3000/api/auth/callback",
+							"type": "string"
+						},
+						{
+							"key": "state",
+							"value": "123",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "offline_access accounting.transactions",
+							"type": "string"
+						},
+						{
+							"key": "authUrl",
+							"value": "https://login.xero.com/identity/connect/authorize",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "https://identity.xero.com/connect/token",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "test-xero",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/auth/connect",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"connect"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get the rog infos",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "callback getting token",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "get tenant from token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accee_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/auth/tenant-data",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"tenant-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get contact",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "get products",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "XeroTenantId",
+						"value": "3a37c8a6-2f0c-4d47-bd28-4dda8c6f0dfe",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/product/sync/xero/products",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product",
+						"sync",
+						"xero",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "place order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accee_token}}",
+						"type": "text"
+					},
+					{
+						"key": "XeroTenantId",
+						"value": "3a37c8a6-2f0c-4d47-bd28-4dda8c6f0dfe",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customer_id\": 1,\n    \"products\": [\n        {\n            \"product_id\": 1,\n            \"quantity\": 2\n        },\n        {\n            \"product_id\": 2,\n            \"quantity\": 1\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/order/create",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"order",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
